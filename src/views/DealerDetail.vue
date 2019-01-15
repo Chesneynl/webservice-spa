@@ -1,6 +1,6 @@
 <template>
-  <div class="about">
-    <router-link to="/">Overzicht</router-link>
+  <div class="container">
+    <router-link to="/" class="back_to_overview">Overzicht</router-link>
     <h1>Dealer - {{dealer.title}}</h1>
     <div class="dealer">
         <span class="title">{{dealer.title}}</span>
@@ -56,6 +56,23 @@ export default {
         display:block;
         background:#f2f2f2;
         padding: 20px;
+    }
+
+    .back_to_overview {
+        background:#3aa0c3;
+        border:1px solid #3aa0c3;
+        color:#fff;
+        text-decoration:none;
+        padding:10px 20px;
+        border-radius:5px;
+        font-size:16px;
+        margin-top:20px;
+        display:inline-block;
+    }
+
+    .back_to_overview:hover {
+        color:#3aa0c3;
+        background:#fff;
     }
 
     span.body,

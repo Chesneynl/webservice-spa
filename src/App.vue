@@ -15,6 +15,16 @@
       color: #2c3e50;
     }
 
+    li {
+        list-style:none;
+    }
+
+    .container {
+        max-width:1024px;
+        margin:0 auto;
+        padding-bottom:100px;
+    }
+
     textarea {
       font-family: 'Avenir', Helvetica, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;

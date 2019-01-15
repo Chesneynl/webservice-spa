@@ -4,10 +4,9 @@
         <div v-if="succesMessage.length" class="succesMessage">{{succesMessage}}</div>
         <ul class="dealers">
             <li class="dealer" v-for="dealer of dealersData.dealers" v-bind:key="dealer.id">
-                <span class="title">{{dealer.title}}</span>
+                <span class="title"><router-link :to="{ name: 'DealerDetail', params: { id: dealer.id }}">{{dealer.title}}</router-link></span>
                 <span class="address">{{dealer.city}} - {{dealer.address}}</span>
                 <button class="button button-red" v-on:click="deleteDealer(dealer.id)">Delete</button>
-                <router-link :to="{ name: 'DealerDetail', params: { id: dealer.id }}">About</router-link>
             </li>
         </ul>
         <h2>Dealer toevoegen</h2>
@@ -94,6 +93,18 @@ export default {
         margin:0;
         padding:0;
         box-sizing:border-box;
+    }
+
+    h1 {
+        margin-top:30px;
+    }
+
+    .title a{
+        text-decoration:none;
+        font-size:20px;
+        margin-bottom:10px;
+        display:block;
+        color:#3aa0c3;
     }
 
     input {
