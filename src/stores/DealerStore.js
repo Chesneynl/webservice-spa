@@ -3,8 +3,6 @@ import axios from 'axios';
 const DealerStrore = {
     data: {
         dealers: [],
-        dealer: ["title", "test"],
-        pagination: [],
     },
     methods: {
         addDealer(titleInput, bodyInput, cityInput, addressInput) {
@@ -24,19 +22,9 @@ const DealerStrore = {
                 this.getAllDealers();
             })
         },
-        getDealer(id) {
-            const config = { headers: { 'Accept': 'application/json' } };
-            axios.get('https://stud.hosted.hr.nl/0901065/dealers/?id=' + id, config)
-            .then(response => {
-                DealerStrore.data.dealer = response.data
-            })
-            .catch(error => {
-                console.log(error);
-            })
-        },
         getAllDealers() {
             const config = { headers: { 'Accept': 'application/json' } };
-            axios.get('https://stud.hosted.hr.nl/0901065/dealers/?limit=3', config)
+            axios.get('https://stud.hosted.hr.nl/0901065/dealers/?limit=5', config)
             .then(response => {
                 DealerStrore.data.dealers = response.data.items
                 DealerStrore.data.pagination = response.data.pagination

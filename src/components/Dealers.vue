@@ -3,9 +3,10 @@
         <h1>Dealers</h1>
         <div v-if="succesMessage.length" class="succesMessage">{{succesMessage}}</div>
         <ul class="dealers">
-            <li class="dealer" v-for="dealer of dealersData.dealers" v-bind:key="dealer.id">
-                <span class="title"><router-link :to="{ name: 'DealerDetail', params: { id: dealer.id }}">{{dealer.title}}</router-link></span>
-                <span class="address">{{dealer.city}} - {{dealer.address}}</span>
+            <li class="dealer" :class="{ active: isActive }" @click.self.prevent.stop="activeLink" v-for="dealer of dealersData.dealers" v-bind:key="dealer.id">
+                <span class="title" ><router-link :to="{ name: 'DealerDetail', params: { id: dealer.id }}">{{dealer.title}}</router-link></span>
+                <span class="address" >{{dealer.city}} - {{dealer.address}}</span>
+                <span  class="body" >{{dealer.body}}</span>
                 <button class="button button-red" v-on:click="deleteDealer(dealer.id)">Delete</button>
             </li>
         </ul>
@@ -18,28 +19,7 @@
             <textarea ref="body" placeholder="Beschrijving" cols="30" rows="10"></textarea>
             <button class="button button-green" @click.prevent="getFormValues()">Toevoegen</button>
         </form>
-        
-        <!-- <div class="pagination">
-            <div class="pag_link first">
-                {{dealersData.pagination._links.first.page}}
-            </div>
-            <div class="pag_link prev">
-                {{dealersData.pagination._links.previous.page}}
-            </div>
-            <div class=" current">
-                {{dealersData.pagination.currentPage}}
-            </div>
-            <div class="pag_link next">
-                {{dealersData.pagination._links.next.page}}
-            </div>
-            <div class="pag_link last">
-                {{dealersData.pagination._links.last.page}}
-            </div>
-        </div> -->
-
-
     </div>
-    
 </template>
 
 <script>
@@ -55,10 +35,22 @@ export default {
             title: "",
             city: "",
             address: "",
-            description: ""
+            description: "",
+            isActive: false
         }
     },
     methods: {
+        activeLink(event) {
+            console.log(event);
+            if(event.target.className == "dealer active")
+            {
+                event.target.className = "dealer";
+            }
+            else
+            {
+                event.target.className = "dealer active";
+            }
+        },
         getFormValues () {
             var title   = this.$refs.title.value;
             var city    = this.$refs.city.value;
@@ -103,7 +95,7 @@ export default {
         text-decoration:none;
         font-size:20px;
         margin-bottom:10px;
-        display:block;
+        display:inline-block;
         color:#3aa0c3;
     }
 
@@ -125,7 +117,7 @@ export default {
         margin-bottom:20px;
     }
     .dealers {
-        margin-top: 30px;
+        margin-top: 20px;
     }
 
     .errorMessage {
@@ -141,11 +133,28 @@ export default {
         background: #f2f2f2;
         padding: 20px;
         position:relative;
+        cursor:pointer;
+    }
+
+    .dealer .body {
+        margin-top:10px;
+        display:none;
+        line-height:140%;
+        pointer-events: none;
+    }
+
+    .dealer.active .body{
+        display:block;
     }
 
     .dealer span.title,
     .dealer span.address {
         display:block;
+        
+    }
+
+    .dealer span.address {
+        pointer-events: none;
     }
 
     .pagination {
